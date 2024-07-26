@@ -1,7 +1,7 @@
 package com.android.weather.sdk.data
 
-import com.google.gson.annotations.SerializedName
 import androidx.annotation.Keep
+import com.google.gson.annotations.SerializedName
 
 /**
  * Data class representing the hourly forecast response.
