@@ -22,7 +22,7 @@ class MainActivityTest {
     @Test
     fun testWeatherForecastButton_withEmptyCityName() {
         // Launch the MainActivity
-        ActivityScenario.launch<MainActivity>(MainActivity::class.java).use { scenario ->
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             // Simulate button click without entering a city name
             Espresso.onView(withId(R.id.btWeatherForecast)).perform(ViewActions.click())
 
@@ -35,7 +35,7 @@ class MainActivityTest {
     @Test
     fun testWeatherForecastButton_withCityName() {
         // Launch the MainActivity
-        ActivityScenario.launch<MainActivity>(MainActivity::class.java).use { scenario ->
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             // Simulate entering a city name and clicking the button
             Espresso.onView(withId(R.id.textInputLayout))
                 .perform(ViewActions.replaceText("Berlin"))
