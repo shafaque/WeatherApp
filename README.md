@@ -76,7 +76,8 @@ You can fetch weather data by city name and display it in a fragment:
 ```kotlin
 import com.android.weather.sdk.WeatherSDK
 import com.android.weather.sdk.WeatherSDKImpl
-import androidx.fragment.app.commit
+import androidx.fragment.app
+
 
 val weatherSDK = WeatherSDKImpl().apply {
     initialize("YOUR_API_KEY")
