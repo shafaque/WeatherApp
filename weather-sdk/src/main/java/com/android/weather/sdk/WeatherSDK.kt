@@ -1,4 +1,4 @@
-package com.android.weather.sdk.network
+package com.android.weather.sdk
 
 import androidx.fragment.app.Fragment
 

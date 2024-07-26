@@ -1,6 +1,8 @@
 package com.android.weather.sdk.network
 
 import androidx.fragment.app.Fragment
+import com.android.weather.sdk.WeatherSDK
+import com.android.weather.sdk.WeatherSDKListener
 import com.android.weather.sdk.ui.ForecastFragment
 
 // Implementation of the WeatherSDK interface.

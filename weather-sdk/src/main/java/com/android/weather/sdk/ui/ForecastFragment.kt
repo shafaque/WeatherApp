@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.android.weather.sdk.data.HourlyForecastResponse
 import com.android.weather.sdk.data.WeatherDataResponse
-import com.android.weather.sdk.network.WeatherSDKListener
+import com.android.weather.sdk.WeatherSDKListener
 import com.android.weather.sdk.vm.ForecastState
 import com.android.weather.sdk.vm.WeatherState
 import com.android.weather.sdk.vm.WeatherViewModel

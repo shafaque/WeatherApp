@@ -2,16 +2,13 @@ package com.shaf.weatherapp
 
 import android.os.Bundle
 import android.widget.Toast
-import android.window.OnBackInvokedDispatcher
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import com.android.weather.sdk.network.WeatherSDK
+import com.android.weather.sdk.WeatherSDK
 import com.android.weather.sdk.network.WeatherSDKImpl
-import com.android.weather.sdk.network.WeatherSDKListener
+import com.android.weather.sdk.WeatherSDKListener
 import com.shaf.weatherapp.databinding.ActivityMainBinding
 
 
