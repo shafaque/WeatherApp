@@ -8,7 +8,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
-
+/**
+ * Singleton object for managing Retrofit client and network requests.
+ */
 object RetrofitClient {
     // An instance of WebServices interface for API calls
     private val webServices: WebServices
@@ -55,6 +57,10 @@ object RetrofitClient {
         webServices = retrofit.create(WebServices::class.java)
     }
 
-    // Function to return the WebServices instance for API calls
+    /**
+     * Returns the WebServices instance for API calls.
+     *
+     * @return An instance of WebServices for making API requests.
+     */
     fun getService(): WebServices = webServices
 }

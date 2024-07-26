@@ -13,6 +13,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * ViewModel for managing weather data.
+ *
+ * @param cityName The name of the city for which to fetch weather data.
+ * @param apiKey The API key for accessing weather data.
+ * @param ioDispatcher The [CoroutineDispatcher] for IO operations, defaulting to [Dispatchers.IO].
+ */
 class WeatherViewModel(
     private val cityName: String,
     private val apiKey: String,
@@ -35,7 +42,9 @@ class WeatherViewModel(
         fetchWeatherData()
     }
 
-    // Function to fetch weather data using coroutines and StateFlow
+    /**
+     * Fetches weather data using coroutines and updates the state flows.
+     */
     private fun fetchWeatherData() {
         viewModelScope.launch {
             try {
@@ -63,16 +72,30 @@ class WeatherViewModel(
     }
 }
 
-// Sealed classes for representing weather data states
+/**
+ * Sealed class representing the state of the current weather data.
+ */
 sealed class WeatherState {
+    /** Represents the loading state. */
     data object Loading : WeatherState()
+
+    /** Represents the success state with the loaded weather data. */
     data class Success(val data: WeatherDataResponse) : WeatherState()
+
+    /** Represents the error state with an error message. */
     data class Error(val message: String) : WeatherState()
 }
 
-// Sealed classes for representing forecast data states
+/**
+ * Sealed class representing the state of the hourly forecast data.
+ */
 sealed class ForecastState {
+    /** Represents the loading state. */
     data object Loading : ForecastState()
+
+    /** Represents the success state with the loaded forecast data. */
     data class Success(val data: HourlyForecastResponse) : ForecastState()
+
+    /** Represents the error state with an error message. */
     data class Error(val message: String) : ForecastState()
 }

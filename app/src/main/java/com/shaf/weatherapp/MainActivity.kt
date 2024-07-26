@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.android.weather.sdk.WeatherSDK
-import com.android.weather.sdk.network.WeatherSDKImpl
+import com.android.weather.sdk.WeatherSDKImpl
 import com.android.weather.sdk.WeatherSDKListener
 import com.shaf.weatherapp.databinding.ActivityMainBinding
 

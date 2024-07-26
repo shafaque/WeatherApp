@@ -20,6 +20,9 @@ import com.android.weather.sdk.vm.WeatherViewModelFactory
 import com.shaf.weather_sdk.databinding.FragmentForecastBinding
 import kotlinx.coroutines.launch
 
+/**
+ * A Fragment that displays the weather forecast for a given city.
+ */
 class ForecastFragment : Fragment() {
     // Declare private properties for API key, city name, and listener
     private lateinit var apiKey: String
@@ -38,15 +41,27 @@ class ForecastFragment : Fragment() {
         WeatherViewModelFactory(cityName, apiKey)
     }
 
-    // Inflate the fragment's layout and return the root view
+    /**
+     * Inflates the fragment's layout and returns the root view.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate any views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     * @return The root view of the fragment's layout.
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentForecastBinding.inflate(inflater,container, false)
+        _binding = FragmentForecastBinding.inflate(inflater, container, false)
         return binding.root
     }
 
-    // Set up UI elements and fetch weather data after the view is created
+    /**
+     * Sets up UI elements and fetches weather data after the view is created.
+     *
+     * @param view The view returned by [onCreateView].
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -64,7 +79,7 @@ class ForecastFragment : Fragment() {
     private fun fetchWeatherData() {
         // Use Coroutines to call the Weatherbit API and update UI
 
-        //Observe the current weather state
+        // Observe the current weather state
         lifecycleScope.launch {
             weatherViewModel.currentWeatherState.collect { state ->
                 when (state) {
@@ -80,9 +95,7 @@ class ForecastFragment : Fragment() {
             weatherViewModel.hourlyForecastState.collect { state->
                 when (state) {
                     is ForecastState.Loading -> showLoadingIndicator() // Show loading indicator while fetching data
-                    is ForecastState.Success -> {
-                        updateHourlyForecastUI(state.data) // Update UI with hourly forecast data
-                    }
+                    is ForecastState.Success -> updateHourlyForecastUI(state.data) // Update UI with hourly forecast data
                     is ForecastState.Error -> logError(state.message) // Log error message
                 }
             }
@@ -103,7 +116,8 @@ class ForecastFragment : Fragment() {
      * @param currentWeather The response object containing the current weather data.
      */
     @SuppressLint("SetTextI18n")
-    private fun updateUI(currentWeather: WeatherDataResponse) {// Update UI with current weather
+    private fun updateUI(currentWeather: WeatherDataResponse) {
+        // Update UI with current weather
         if (currentWeather.count > 0) {
             // Check if data is available
             binding.cityName.text = currentWeather.data[0].cityName // Set city name
@@ -146,22 +160,34 @@ class ForecastFragment : Fragment() {
         }
     }
 
-    // Shows the loading indicator (e.g., a progress bar).
+    /**
+     * Shows the loading indicator (e.g., a progress bar).
+     */
     private fun showLoadingIndicator() {
         binding.progressCircular.visibility = View.VISIBLE
     }
 
-    // Shows an error message to the user through a listener.
+    /**
+     * Shows an error message to the user through a listener.
+     *
+     * @param message The error message to be displayed.
+     */
     private fun showError(message: String) {
         listener.onFinishedWithError(message)
     }
 
-    // Logs an error message to the Logcat with the tag "WeatherSDK".
+    /**
+     * Logs an error message to the Logcat with the tag "WeatherSDK".
+     *
+     * @param message The error message to be logged.
+     */
     private fun logError(message: String) {
         Log.d("WeatherSDK", "logError: $message")
     }
 
-    // Cleans up the binding reference when the view is destroyed.
+    /**
+     * Cleans up the binding reference when the view is destroyed.
+     */
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

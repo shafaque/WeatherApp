@@ -10,24 +10,44 @@ import androidx.recyclerview.widget.RecyclerView
 import com.android.weather.sdk.data.HourlyForecastResponse
 import com.shaf.weather_sdk.R
 
- class HourlyForecastAdapter(private var forecastList: List<HourlyForecastResponse.Data>) :
+/**
+ * Adapter class for displaying hourly weather forecast data in a RecyclerView.
+ *
+ * @param forecastList The initial list of hourly forecast data.
+ */
+class HourlyForecastAdapter(private var forecastList: List<HourlyForecastResponse.Data>) :
     RecyclerView.Adapter<HourlyForecastAdapter.ViewHolder>() {
 
-    // ViewHolder class to hold references to the views in each item
+    /**
+     * ViewHolder class to hold references to the views in each item.
+     *
+     * @param view The view representing an individual item.
+     */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val timeTextView: TextView = view.findViewById(R.id.time_text)
         val tempTextView: TextView = view.findViewById(R.id.temp_text)
         val descTextView: TextView = view.findViewById(R.id.desc_text)
     }
 
-    // Create a new ViewHolder instance
+    /**
+     * Creates a new ViewHolder instance.
+     *
+     * @param parent The parent view group.
+     * @param viewType The type of the view.
+     * @return A new ViewHolder instance.
+     */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_hourly_forecast, parent, false)
         return ViewHolder(view)
     }
 
-    // Bind data to the views in a ViewHolder
+    /**
+     * Binds data to the views in a ViewHolder.
+     *
+     * @param holder The ViewHolder instance.
+     * @param position The position of the item in the list.
+     */
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val forecast = forecastList[position]
@@ -36,10 +56,18 @@ import com.shaf.weather_sdk.R
         holder.descTextView.text = forecast.weather.description
     }
 
-    // Return the total number of items in the list
+    /**
+     * Returns the total number of items in the list.
+     *
+     * @return The size of the forecast list.
+     */
     override fun getItemCount() = forecastList.size
 
-    // Update the data in the adapter using DiffUtil
+    /**
+     * Updates the data in the adapter using DiffUtil to calculate the differences.
+     *
+     * @param newForecastList The new list of hourly forecast data.
+     */
     fun updateData(newForecastList: List<HourlyForecastResponse.Data>) {
         val diffCallback = ForecastDiffCallback(forecastList, newForecastList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
@@ -47,20 +75,49 @@ import com.shaf.weather_sdk.R
         diffResult.dispatchUpdatesTo(this)
     }
 
-    // DiffUtil.Callback class to calculate the differences between old and new lists
+    /**
+     * DiffUtil.Callback class to calculate the differences between old and new lists.
+     *
+     * @param oldList The old list of hourly forecast data.
+     * @param newList The new list of hourly forecast data.
+     */
     class ForecastDiffCallback(
         private val oldList: List<HourlyForecastResponse.Data>,
         private val newList: List<HourlyForecastResponse.Data>
     ) : DiffUtil.Callback() {
 
+        /**
+         * Returns the size of the old list.
+         *
+         * @return The size of the old list.
+         */
         override fun getOldListSize() = oldList.size
 
+        /**
+         * Returns the size of the new list.
+         *
+         * @return The size of the new list.
+         */
         override fun getNewListSize() = newList.size
 
+        /**
+         * Checks if two items represent the same data.
+         *
+         * @param oldItemPosition The position of the item in the old list.
+         * @param newItemPosition The position of the item in the new list.
+         * @return True if the items represent the same data, false otherwise.
+         */
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition].timestampLocal == newList[newItemPosition].timestampLocal
         }
 
+        /**
+         * Checks if the contents of two items are the same.
+         *
+         * @param oldItemPosition The position of the item in the old list.
+         * @param newItemPosition The position of the item in the new list.
+         * @return True if the contents of the items are the same, false otherwise.
+         */
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             val oldItem = oldList[oldItemPosition]
             val newItem = newList[newItemPosition]
@@ -70,4 +127,3 @@ import com.shaf.weather_sdk.R
         }
     }
 }
-
