@@ -1,4 +1,3 @@
-Here is the revised documentation for WeatherSDK with the correct installation instructions for importing it as a project module:
 
 ---
 
@@ -115,7 +114,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Contact
 
-For any inquiries or support, please contact us at [shafaquesattar@hotmail.com](mailto:shafaquesattar@hotmail.com).
+For any inquiries or support, please contact me at [shafaquesattar@hotmail.com](mailto:shafaquesattar@hotmail.com).
 
 ---
 
