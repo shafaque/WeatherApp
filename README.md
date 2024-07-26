@@ -1,3 +1,4 @@
+Documentation for WeatherSDK with the correct installation instructions for importing it as a project module:
 
 ---
 
