@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.weather.sdk.data.HourlyForecastResponse
 import com.android.weather.sdk.data.WeatherDataResponse
 import com.android.weather.sdk.WeatherSDKListener
+import com.android.weather.sdk.to24HourFormatWithHourOnly
 import com.android.weather.sdk.vm.ForecastState
 import com.android.weather.sdk.vm.WeatherState
 import com.android.weather.sdk.vm.WeatherViewModel
@@ -92,7 +93,7 @@ class ForecastFragment : Fragment() {
 
         // Observe the hourly forecast state
         lifecycleScope.launch {
-            weatherViewModel.hourlyForecastState.collect { state->
+            weatherViewModel.hourlyForecastState.collect { state ->
                 when (state) {
                     is ForecastState.Loading -> showLoadingIndicator() // Show loading indicator while fetching data
                     is ForecastState.Success -> updateHourlyForecastUI(state.data) // Update UI with hourly forecast data
@@ -122,8 +123,10 @@ class ForecastFragment : Fragment() {
             // Check if data is available
             binding.cityName.text = currentWeather.data[0].cityName // Set city name
             binding.currentTemp.text = "${currentWeather.data[0].temp}°C" // Set temperature
-            binding.currentWeather.text = currentWeather.data[0].weather.description // Set weather description
-            binding.localTime.text = currentWeather.data[0].datetime // Set local time
+            binding.currentWeather.text =
+                currentWeather.data[0].weather.description // Set weather description
+            binding.localTime.text =
+                currentWeather.data[0].datetime.to24HourFormatWithHourOnly() // Set local time
         } else {
             // Show a toast message if no data is found
             Toast.makeText(requireContext(), "No Hourly Data Found", Toast.LENGTH_SHORT).show()

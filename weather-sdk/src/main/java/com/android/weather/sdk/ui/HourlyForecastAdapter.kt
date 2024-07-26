@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.android.weather.sdk.data.HourlyForecastResponse
+import com.android.weather.sdk.to24HourFormat
 import com.shaf.weather_sdk.R
 
 /**
@@ -51,7 +52,7 @@ class HourlyForecastAdapter(private var forecastList: List<HourlyForecastRespons
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val forecast = forecastList[position]
-        holder.timeTextView.text = forecast.timestampLocal
+        holder.timeTextView.text = forecast.timestampLocal.to24HourFormat()
         holder.tempTextView.text = "${forecast.temp}°C"
         holder.descTextView.text = forecast.weather.description
     }
@@ -127,3 +128,4 @@ class HourlyForecastAdapter(private var forecastList: List<HourlyForecastRespons
         }
     }
 }
+
