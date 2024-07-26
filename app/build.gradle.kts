@@ -55,8 +55,14 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation( libs.androidx.core)
+    testImplementation (libs.mockito.core)
+    androidTestImplementation (libs.mockito.android)
+    androidTestImplementation (libs.androidx.truth)
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.fragment.ktx)
+// Add these dependencies if you don't have them already
+
 
 }

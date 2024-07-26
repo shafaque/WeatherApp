@@ -36,15 +36,6 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
         }
 
         initUI(savedInstanceState)
-        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                if (supportFragmentManager.backStackEntryCount == 0) {
-                    onBackPressedDispatcher.onBackPressed() // with this line
-                } else {
-                    supportFragmentManager.popBackStack()
-                }
-            }
-        })
     }
 
     private fun initUI(savedInstanceState: Bundle?) {
@@ -74,7 +65,11 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
     }
 
     override fun onFinishedWithError(error: String) {
-        Toast.makeText(this, "Finished", Toast.LENGTH_SHORT).show()
+        fragmentManager.commit {
+            setReorderingAllowed(true)
+            remove(weatherFragment)
+        }
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
 

@@ -70,7 +70,10 @@ class ForecastFragment : Fragment() {
             weatherViewModel.hourlyForecastState.collect { state ->
                 when (state) {
                     is ForecastState.Loading -> showLoadingIndicator()
-                    is ForecastState.Success -> updateHourlyForecastUI(state.data)
+                    is ForecastState.Success -> {
+                        updateHourlyForecastUI(state.data)
+                    }
+
                     is ForecastState.Error -> showError(state.message)
                 }
             }
@@ -86,6 +89,8 @@ class ForecastFragment : Fragment() {
             binding.currentTemp.text = "${currentWeather.data[0].temp}°C"
             binding.currentWeather.text = currentWeather.data[0].weather.description
             binding.localTime.text = currentWeather.data[0].datetime
+        } else {
+            Toast.makeText(requireContext(), "No Hourly Data Found", Toast.LENGTH_SHORT).show()
         }
 
     }
@@ -112,7 +117,7 @@ class ForecastFragment : Fragment() {
     }
 
     private fun showError(message: String) {
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        listener.onFinishedWithError(message)
     }
 
     override fun onDestroyView() {
