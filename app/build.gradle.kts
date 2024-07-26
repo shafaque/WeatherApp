@@ -62,6 +62,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.fragment.ktx)
+    testImplementation (libs.mockito.inline)
+
 // Add these dependencies if you don't have them already
 
 

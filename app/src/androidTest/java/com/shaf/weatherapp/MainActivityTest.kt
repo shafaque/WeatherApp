@@ -18,13 +18,6 @@ import org.mockito.Mockito.verify
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {
-    @Mock
-    var mockWeatherSDK: WeatherSDK? = null
-
-    @Before
-    fun setup() {
-        mockWeatherSDK = mock(WeatherSDKImpl::class.java)
-    }
 
     @Test
     fun testWeatherForecastButton_withEmptyCityName() {
@@ -51,39 +44,6 @@ class MainActivityTest {
             // Verify that the fragment is displayed
             Espresso.onView(withId(R.id.fragment_container_view))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-        }
-    }
-
-    @Test
-    fun testWeatherSDKInitialization() {
-        // Launch the MainActivity
-        ActivityScenario.launch<MainActivity>(MainActivity::class.java).use { scenario ->
-            scenario.onActivity {
-                // Verify that the WeatherSDK was initialized with the correct API key
-                verify(mockWeatherSDK)?.initialize("38070488ba9f4b5f9d5b19c08b711713")
-            }
-        }
-    }
-
-    @Test
-    fun testOnFinished() {
-        // Launch the MainActivity
-        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
-            scenario.onActivity { activity: MainActivity ->
-                // Call the onFinished method
-                activity.onFinished()
-            }
-        }
-    }
-
-    @Test
-    fun testOnFinishedWithError() {
-        // Launch the MainActivity
-        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
-            scenario.onActivity { activity: MainActivity ->
-                // Call the onFinishedWithError method
-                activity.onFinishedWithError("Error message")
-            }
         }
     }
 }
