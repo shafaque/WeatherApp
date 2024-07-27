@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">WeatherApp</string>
-    <string name="action_settings">Settings</string>
-
-
 
     <!-- String for prompting the user to enter a city name. -->
     <string name="enter_city_name">Enter City Name</string>
@@ -12,4 +9,7 @@
 
     <!-- String for a more detailed prompt to enter a city name for weather forecast. -->
     <string name="enter_the_city_name_for_weather_forecast">Enter the city name for weather forecast</string>
+    <string name="example_app">Example App</string>
+    <string name="weather_details_dismissed">Weather Details Dismissed</string>
+    <string name="please_enter_a_city_name">Please enter a city name</string>
 </resources>

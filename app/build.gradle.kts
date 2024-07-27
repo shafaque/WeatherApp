@@ -1,8 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -51,20 +49,15 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
-    implementation(project(":weather-sdk"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation( libs.androidx.core)
     testImplementation (libs.mockito.core)
+    testImplementation (libs.mockito.inline)
     androidTestImplementation (libs.mockito.android)
     androidTestImplementation (libs.androidx.truth)
-    implementation(libs.hilt.android)
-    ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.fragment.ktx)
-    testImplementation (libs.mockito.inline)
-
-// Add these dependencies if you don't have them already
-
+    implementation(project(":weather-sdk"))
 
 }

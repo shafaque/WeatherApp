@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.dokka.gradle)
-    id("com.google.devtools.ksp")
 }
 
 android {
@@ -40,10 +39,6 @@ android {
 
     tasks.dokkaHtml {
         outputDirectory.set(layout.buildDirectory.dir("documentation/html"))
-    }
-
-    tasks.dokkaGfm {
-        outputDirectory.set(layout.buildDirectory.dir("documentation/markdown"))
     }
 
 }

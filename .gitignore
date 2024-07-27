@@ -1,3 +1,4 @@
+# Ignore Android Studio/IntelliJ related files
 *.iml
 .gradle
 /local.properties
@@ -7,9 +8,20 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+
+# macOS system file
 .DS_Store
+
+# Ignore build directories
 /build
 /captures
 .externalNativeBuild
 .cxx
+
+# Re-ignore local properties
 local.properties
+
+# Documentation exception
+!/build/documentation/
+/build/documentation/*
+!/build/documentation/html/

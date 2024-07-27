@@ -28,8 +28,7 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
         // Enable the back button in the toolbar
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            supportActionBar?.title = "Example App" // Set the toolbar title
-
+            supportActionBar?.title = getString(R.string.example_app) // Set the toolbar title
         }
 
         mainbinding.toolbar.setNavigationOnClickListener {
@@ -50,7 +49,8 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
         mainbinding.contentView.btWeatherForecast.setOnClickListener {
             val cityName = mainbinding.contentView.textInputLayout.editText?.text.toString()
             if (cityName.isEmpty()) {
-                mainbinding.contentView.textInputLayout.error = "Please enter a city name"
+                mainbinding.contentView.textInputLayout.error =
+                    getString(R.string.please_enter_a_city_name)
                 return@setOnClickListener
             }
             // Create a new instance of the fragment
@@ -69,24 +69,25 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
     }
 
     override fun onFinished() {
+        resetUI()
+        Toast.makeText(this, getString(R.string.weather_details_dismissed), Toast.LENGTH_SHORT).show()
+    }
+
+
+    override fun onFinishedWithError(error: String) {
+        resetUI()
+        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun resetUI() {
         fragmentManager.commit {
             setReorderingAllowed(true)
             remove(weatherFragment)
         }
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
-            supportActionBar?.title = "Example App" // Set the toolbar title
+            supportActionBar?.title = getString(R.string.example_app) // Set the toolbar title
         }
-        // Handle fragment dismissal
-        Toast.makeText(this, "Weather Details Dismissed", Toast.LENGTH_SHORT).show()
-    }
-
-    override fun onFinishedWithError(error: String) {
-        fragmentManager.commit {
-            setReorderingAllowed(true)
-            remove(weatherFragment)
-        }
-        Toast.makeText(this, error, Toast.LENGTH_SHORT).show()
     }
 
 
