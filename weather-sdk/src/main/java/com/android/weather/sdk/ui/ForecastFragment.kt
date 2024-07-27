@@ -4,22 +4,32 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import com.android.weather.sdk.WeatherSDKListener
 import com.android.weather.sdk.data.HourlyForecastResponse
 import com.android.weather.sdk.data.WeatherDataResponse
-import com.android.weather.sdk.WeatherSDKListener
-import com.android.weather.sdk.to24HourFormatWithHourOnly
+import com.android.weather.sdk.to24HourFormat
+import com.android.weather.sdk.toLocalTime
 import com.android.weather.sdk.vm.ForecastState
 import com.android.weather.sdk.vm.WeatherState
 import com.android.weather.sdk.vm.WeatherViewModel
 import com.android.weather.sdk.vm.WeatherViewModelFactory
+import com.shaf.weather_sdk.R
 import com.shaf.weather_sdk.databinding.FragmentForecastBinding
 import kotlinx.coroutines.launch
+
 
 /**
  * A Fragment that displays the weather forecast for a given city.
@@ -54,6 +64,14 @@ class ForecastFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentForecastBinding.inflate(inflater, container, false)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Custom back press behavior
+            listener.onFinished()
+
+            // Pop the back stack to go back to the previous fragment
+            requireActivity().supportFragmentManager.popBackStack()
+        }
         return binding.root
     }
 
@@ -66,12 +84,20 @@ class ForecastFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            setDisplayHomeAsUpEnabled(true)
+            title = getString(R.string.toolbar_title)
+
+        }
+
         // Initialize the RecyclerView with an empty adapter
         adapter = HourlyForecastAdapter(emptyList())
         binding.hourlyForecastList.adapter = adapter
 
         // Fetch and display weather data
         fetchWeatherData()
+
+
     }
 
     /**
@@ -125,8 +151,10 @@ class ForecastFragment : Fragment() {
             binding.currentTemp.text = "${currentWeather.data[0].temp}°C" // Set temperature
             binding.currentWeather.text =
                 currentWeather.data[0].weather.description // Set weather description
-            binding.localTime.text =
-                currentWeather.data[0].datetime.to24HourFormatWithHourOnly() // Set local time
+
+            val localTime = currentWeather.data[0].ts.toLocalTime(currentWeather.data[0].timezone)
+            val resultString = resources.getString(R.string.local_time_format, localTime)
+            binding.localTime.text = resultString // Set local time
         } else {
             // Show a toast message if no data is found
             Toast.makeText(requireContext(), "No Hourly Data Found", Toast.LENGTH_SHORT).show()

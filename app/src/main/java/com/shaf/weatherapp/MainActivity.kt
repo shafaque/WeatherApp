@@ -24,7 +24,17 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
         super.onCreate(savedInstanceState)
         mainbinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainbinding.root)
+        setSupportActionBar(mainbinding.toolbar)
+        // Enable the back button in the toolbar
+        if (supportActionBar != null) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.title = "Example App" // Set the toolbar title
 
+        }
+
+        mainbinding.toolbar.setNavigationOnClickListener {
+            onBackPressedDispatcher.onBackPressed()
+        }
 
         weatherSDK = WeatherSDKImpl().apply {
             initialize("38070488ba9f4b5f9d5b19c08b711713")
@@ -35,6 +45,7 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
         initUI(savedInstanceState)
     }
 
+
     private fun initUI(savedInstanceState: Bundle?) {
         mainbinding.contentView.btWeatherForecast.setOnClickListener {
             val cityName = mainbinding.contentView.textInputLayout.editText?.text.toString()
@@ -44,6 +55,7 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
             }
             // Create a new instance of the fragment
             weatherFragment = weatherSDK.launch(cityName)
+            mainbinding.contentView.textInputLayout.editText?.text?.clear()
             // Check if the fragment container is already filled
             if (savedInstanceState == null) {
                 // Add the fragment to the container
@@ -57,8 +69,16 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
     }
 
     override fun onFinished() {
+        fragmentManager.commit {
+            setReorderingAllowed(true)
+            remove(weatherFragment)
+        }
+        if (supportActionBar != null) {
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+            supportActionBar?.title = "Example App" // Set the toolbar title
+        }
         // Handle fragment dismissal
-        Toast.makeText(this, "Finished", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Weather Details Dismissed", Toast.LENGTH_SHORT).show()
     }
 
     override fun onFinishedWithError(error: String) {

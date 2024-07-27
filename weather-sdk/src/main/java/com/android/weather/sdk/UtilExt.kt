@@ -1,6 +1,9 @@
 package com.android.weather.sdk
 
+import android.util.Log
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 
@@ -14,7 +17,7 @@ fun String.to24HourFormat(): String {
         val dateTime = LocalDateTime.parse(this, isoFormatter)
 
         // Define the formatter for the 24-hour time format
-        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
 
         // Format the time part of the LocalDateTime object to a 24-hour string
         dateTime.format(timeFormatter)
@@ -22,21 +25,27 @@ fun String.to24HourFormat(): String {
         "Invalid date format"
     }
 }
-// Extension function to convert a string in 'yyyy-MM-dd:HH' format to a 24-hour time string
-fun String.to24HourFormatWithHourOnly(): String {
+
+// Extension function to convert timestamp to local time in 24-hour format
+fun Long.toLocalTime(timezone: String): String {
     return try {
-        // Define a custom formatter for the input date-time pattern
-        val customFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd:HH")
+        // Create an Instant from the timestamp
+        val instant = Instant.ofEpochSecond(this)
 
-        // Parse the input string to a LocalDateTime object using the custom pattern
-        val dateTime = LocalDateTime.parse(this, customFormatter)
+        // Get the system default timezone or specified timezone
+        val zoneId = ZoneId.of(timezone)
 
-        // Define the formatter for the 24-hour time format
-        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss")
+        // Create a ZonedDateTime from the Instant
+        val zonedDateTime = instant.atZone(zoneId)
 
-        // Format the time part of the LocalDateTime object to a 24-hour string
-        dateTime.format(timeFormatter)
+        // Define the formatter for 24-hour format
+        val formatter = DateTimeFormatter.ofPattern("HH:mm")
+
+        // Return the formatted time
+        zonedDateTime.format(formatter)
     } catch (e: Exception) {
-        "Invalid date format"
+        // Handle exceptions, e.g., log the error or return a default value
+        Log.e("TimeConversion", "Error converting time: ${e.message}")
+        "Invalid Time" // Or handle the error as needed
     }
 }

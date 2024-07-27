@@ -1,4 +1,8 @@
 <resources>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="toolbar_title">24h Forecast</string>
+    <!-- String with a placeholder for local time.
+     %1$s is a placeholder for a string value that will be inserted at runtime. -->
+    <string name="local_time_format">At %1$s Local time</string>
 </resources>
