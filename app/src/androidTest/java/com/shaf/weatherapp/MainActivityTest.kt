@@ -27,7 +27,7 @@ class MainActivityTest {
             Espresso.onView(withId(R.id.btWeatherForecast)).perform(ViewActions.click())
 
             // Check for error message
-            Espresso.onView(withId(R.id.textInputLayout))
+            Espresso.onView(withId(R.id.etCityName))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         }
     }
@@ -37,7 +37,7 @@ class MainActivityTest {
         // Launch the MainActivity
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             // Simulate entering a city name and clicking the button
-            Espresso.onView(withId(R.id.textInputLayout))
+            Espresso.onView(withId(R.id.etCityName))
                 .perform(ViewActions.replaceText("Berlin"))
             Espresso.onView(withId(R.id.btWeatherForecast)).perform(ViewActions.click())
 
