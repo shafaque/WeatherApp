@@ -20,8 +20,3 @@
 
 # Re-ignore local properties
 local.properties
-
-# Documentation exception
-!/build/documentation/
-/build/documentation/*
-!/build/documentation/html/
