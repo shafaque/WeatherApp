@@ -4,7 +4,7 @@ Documentation for WeatherSDK with the correct installation instructions for impo
 
 # WeatherSDK Android
 
-WeatherSDK is a simple and powerful Android library designed to fetch weather data seamlessly. It provides developers with an easy-to-integrate solution for retrieving weather information in Android applications.
+WeatherSDK is a simple and powerful Android library designed to fetch weather data seamlessly from [Weatherbit](https://www.weatherbit.io/). It provides developers with an easy-to-integrate solution for retrieving weather information in Android applications.
 
 ## Table of Contents
 
@@ -102,7 +102,7 @@ WeatherSDK supports several configuration options:
 
 ### API Key
 
-Ensure you have your API key ready for initialization. Replace `"YOUR_API_KEY"` with your actual API key when initializing WeatherSDK:
+Ensure you have your API key ready for initialization. Replace `"YOUR_API_KEY"` with your actual API key from weatherbit when initializing WeatherSDK:
 
 ```kotlin
 val weatherSDK = WeatherSDKImpl().apply {
