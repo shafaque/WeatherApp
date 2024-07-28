@@ -4,23 +4,19 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.weather.sdk.WeatherSDKListener
 import com.android.weather.sdk.data.HourlyForecastResponse
 import com.android.weather.sdk.data.WeatherDataResponse
-import com.android.weather.sdk.to24HourFormat
 import com.android.weather.sdk.toLocalTime
 import com.android.weather.sdk.vm.ForecastState
 import com.android.weather.sdk.vm.WeatherState
@@ -45,7 +41,7 @@ class ForecastFragment : Fragment() {
     private val binding get() = _binding!!
 
     // Adapter for the hourly forecast RecyclerView
-    private lateinit var adapter: HourlyForecastAdapter
+    private lateinit var forecastAdapter: HourlyForecastAdapter
 
     // ViewModel instance using delegated property with a custom factory
     private val weatherViewModel: WeatherViewModel by viewModels {
@@ -89,16 +85,47 @@ class ForecastFragment : Fragment() {
             title = getString(R.string.toolbar_title)
 
         }
-
-        // Initialize the RecyclerView with an empty adapter
-        adapter = HourlyForecastAdapter(emptyList())
-        binding.hourlyForecastList.adapter = adapter
+        // Set up RecyclerView
+        setRecyclerView()
 
         // Fetch and display weather data
         fetchWeatherData()
 
-
     }
+
+    /**
+     * Configures the RecyclerView to display a list of hourly weather forecasts.
+     *
+     * This function initializes the RecyclerView with an empty adapter, sets up
+     * a vertical `LinearLayoutManager`, adds a divider between each item for visual
+     * separation, and applies these configurations to the RecyclerView. This is
+     * particularly useful when displaying weather data in a structured list format.
+     */
+    private fun setRecyclerView() {
+        // Initialize the RecyclerView with an empty adapter
+        forecastAdapter = HourlyForecastAdapter(emptyList())
+
+        // Create a LinearLayoutManager for arranging items vertically
+        val linearLayoutManager = LinearLayoutManager(
+            binding.hourlyForecastList.context, // Context from the binding
+            LinearLayoutManager.VERTICAL,       // Orientation set to vertical
+            false                               // Reverse layout disabled
+        )
+
+        // Add a divider line between items in the RecyclerView
+        val dividerItemDecoration = DividerItemDecoration(
+            binding.hourlyForecastList.context, // Context from the binding
+            linearLayoutManager.orientation     // Orientation of the divider
+        )
+
+        // Apply layout manager, adapter, and item decoration to the RecyclerView
+        binding.hourlyForecastList.apply {
+            layoutManager = linearLayoutManager  // Set the layout manager
+            adapter = forecastAdapter            // Assign the adapter
+            addItemDecoration(dividerItemDecoration) // Add item decoration
+        }
+    }
+
 
     /**
      * Fetches weather data and updates the UI.
@@ -167,8 +194,12 @@ class ForecastFragment : Fragment() {
      * @param hourlyForecast The response object containing the hourly forecast data.
      */
     private fun updateHourlyForecastUI(hourlyForecast: HourlyForecastResponse) {
+
+        // Hide loading indicator
+        binding.progressCircular.visibility = View.GONE
+
         // Update the adapter with the new data.
-        adapter.updateData(hourlyForecast.data)
+        forecastAdapter.updateData(hourlyForecast.data)
     }
 
     companion object {

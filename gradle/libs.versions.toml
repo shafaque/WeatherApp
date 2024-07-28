@@ -1,5 +1,4 @@
 [versions]
-activityKtx = "1.9.1"
 agp = "8.5.1"
 core = "1.6.1"
 fragmentKtx = "1.8.2"
@@ -21,7 +20,7 @@ retrofit = "2.9.0"
 okhttp = "4.12.0"
 coroutine = "1.7.3"
 truth = "1.6.0"
-ksp = "2.0.0-1.0.22"
+activityKtx = "1.9.1"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
@@ -46,14 +45,10 @@ retrofit2-gson = { group = "com.squareup.retrofit2", name = "converter-gson", ve
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 coroutine = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
 hilt-android-gradle-plugin = { module = "com.google.dagger:hilt-android-gradle-plugin", version.ref = "hiltAndroid" }
-hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltAndroid" }
-hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hiltAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 dokka-gradle = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-hilt-gradle = { id = "com.google.dagger.hilt.android", version.ref = "hiltAndroid" }
-ksp-gradle = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 

@@ -15,6 +15,9 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Add API key to BuildConfig as a constant
+        buildConfigField("String", "API_KEY", "\"38070488ba9f4b5f9d5b19c08b711713\"")
     }
 
     buildTypes {
@@ -52,11 +55,11 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-    androidTestImplementation( libs.androidx.core)
-    testImplementation (libs.mockito.core)
-    testImplementation (libs.mockito.inline)
-    androidTestImplementation (libs.mockito.android)
-    androidTestImplementation (libs.androidx.truth)
+    androidTestImplementation(libs.androidx.core)
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+    androidTestImplementation(libs.mockito.android)
+    androidTestImplementation(libs.androidx.truth)
     implementation(libs.androidx.fragment.ktx)
     implementation(project(":weather-sdk"))
 

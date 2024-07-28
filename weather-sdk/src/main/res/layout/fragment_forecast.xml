@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_light_background"
-    android:padding="16dp">
+    android:background="@color/cardview_light_background">
 
     <!-- City Name -->
     <TextView
         android:id="@+id/city_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
+        android:textSize="@dimen/_16sp"
+        android:padding="@dimen/_16dp"
         app:layout_constraintBottom_toTopOf="@id/current_temp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         android:id="@+id/current_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="@dimen/_24sp"
         app:layout_constraintBottom_toTopOf="@id/current_weather"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,12 +62,15 @@
         android:id="@+id/hourly_forecast_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:background="@color/item_bg_color"
+        android:layout_marginTop="@dimen/_16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_hourly_forecast"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/local_time" />
+
+    <!-- loader for Forecast -->
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progress_circular"
@@ -75,6 +78,7 @@
         android:layout_height="wrap_content"
         android:indeterminate="true"
         android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

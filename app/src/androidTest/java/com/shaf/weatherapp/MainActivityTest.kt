@@ -7,14 +7,8 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.android.weather.sdk.WeatherSDK
-import com.android.weather.sdk.WeatherSDKImpl
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mock
-import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {

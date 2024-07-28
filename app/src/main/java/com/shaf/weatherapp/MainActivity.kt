@@ -1,6 +1,8 @@
 package com.shaf.weatherapp
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -36,8 +38,7 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
         }
 
         weatherSDK = WeatherSDKImpl().apply {
-            initialize("38070488ba9f4b5f9d5b19c08b711713")
-            // initialize("b0787db930684646896ac129b3413092")
+            initialize(BuildConfig.API_KEY)
             setWeatherSDKListener(this@MainActivity)
         }
 
@@ -55,7 +56,11 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
             }
             // Create a new instance of the fragment
             weatherFragment = weatherSDK.launch(cityName)
+            // reset the input field
             mainbinding.contentView.textInputLayout.editText?.text?.clear()
+            mainbinding.contentView.textInputLayout.error = null
+            hideKeyboard()
+
             // Check if the fragment container is already filled
             if (savedInstanceState == null) {
                 // Add the fragment to the container
@@ -70,7 +75,8 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
 
     override fun onFinished() {
         resetUI()
-        Toast.makeText(this, getString(R.string.weather_details_dismissed), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, getString(R.string.weather_details_dismissed), Toast.LENGTH_SHORT)
+            .show()
     }
 
 
@@ -87,6 +93,14 @@ class MainActivity : AppCompatActivity(), WeatherSDKListener {
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
             supportActionBar?.title = getString(R.string.example_app) // Set the toolbar title
+        }
+    }
+
+    private fun hideKeyboard() {
+        val view = currentFocus
+        view?.let {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
     }
 
