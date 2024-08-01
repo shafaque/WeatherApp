@@ -17,7 +17,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // Add API key to BuildConfig as a constant
-        buildConfigField("String", "API_KEY", "\"38070488ba9f4b5f9d5b19c08b711713\"")
+        buildConfigField("String", "API_KEY", "\"YOUR API KEY\"")
     }
 
     buildTypes {
