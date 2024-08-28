@@ -1,4 +1,4 @@
-package com.android.weather.sdk.ui
+package com.android.weather.sdk.presentation.ui
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.android.weather.sdk.data.HourlyForecastResponse
+import com.android.weather.sdk.data.response.HourlyForecastResponse
 import com.android.weather.sdk.to24HourFormat
 import com.shaf.weather_sdk.R
 
@@ -16,7 +16,7 @@ import com.shaf.weather_sdk.R
  *
  * @param forecastList The initial list of hourly forecast data.
  */
-class HourlyForecastAdapter(private var forecastList: List<HourlyForecastResponse.Data>) :
+internal class HourlyForecastAdapter(private var forecastList: List<HourlyForecastResponse.Data>) :
     RecyclerView.Adapter<HourlyForecastAdapter.ViewHolder>() {
 
     /**

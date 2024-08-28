@@ -1,4 +1,4 @@
-package com.android.weather.sdk.data
+package com.android.weather.sdk.data.response
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
  * @property data The list of weather data points.
  */
 @Keep
-data class WeatherDataResponse(
+internal data class WeatherDataResponse(
     @SerializedName("count")
     val count: Int, // The number of data points returned.
     @SerializedName("data")

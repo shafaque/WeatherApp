@@ -1,5 +1,6 @@
-package com.android.weather.sdk.network
+package com.android.weather.sdk.data.network
 
+import com.android.weather.sdk.data.WebServices
 import com.google.gson.GsonBuilder
 import com.shaf.weather_sdk.BuildConfig
 import okhttp3.OkHttpClient
@@ -62,5 +63,5 @@ object RetrofitClient {
      *
      * @return An instance of WebServices for making API requests.
      */
-    fun getService(): WebServices = webServices
+    internal fun getService(): WebServices = webServices
 }

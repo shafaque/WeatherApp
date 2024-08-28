@@ -1,4 +1,4 @@
-package com.android.weather.sdk.data
+package com.android.weather.sdk.data.response
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
@@ -15,7 +15,7 @@ import com.google.gson.annotations.SerializedName
  * @property timezone Timezone of the location.
  */
 @Keep
-data class HourlyForecastResponse(
+internal data class HourlyForecastResponse(
     /** The name of the city for which the forecast is provided */
     @SerializedName("city_name")
     val cityName: String,
