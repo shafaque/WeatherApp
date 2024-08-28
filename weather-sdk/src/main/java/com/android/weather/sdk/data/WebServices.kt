@@ -1,14 +1,14 @@
-package com.android.weather.sdk.network
+package com.android.weather.sdk.data
 
-import com.android.weather.sdk.data.HourlyForecastResponse
-import com.android.weather.sdk.data.WeatherDataResponse
+import com.android.weather.sdk.data.response.HourlyForecastResponse
+import com.android.weather.sdk.data.response.WeatherDataResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
  * Interface representing the web services for fetching weather data.
  */
-interface WebServices {
+internal interface WebServices {
 
     /**
      * Endpoint to get the current weather data for a given city.

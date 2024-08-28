@@ -5,13 +5,3 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.dokka.gradle) apply false
 }
-
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath(libs.hilt.android.gradle.plugin)
-    }
-}

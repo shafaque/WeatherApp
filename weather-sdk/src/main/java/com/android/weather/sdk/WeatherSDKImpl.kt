@@ -1,7 +1,7 @@
 package com.android.weather.sdk
 
 import androidx.fragment.app.Fragment
-import com.android.weather.sdk.ui.ForecastFragment
+import com.android.weather.sdk.presentation.ui.ForecastFragment
 
 /**
  * Implementation of the [WeatherSDK] interface.
